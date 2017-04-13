@@ -1,4 +1,6 @@
 // TICKETS
+'use strict';
+
 exports.up = function(knex, Promise) {
 
 };

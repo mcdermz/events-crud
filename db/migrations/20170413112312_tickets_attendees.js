@@ -1,4 +1,6 @@
 // TICKETS_ATTENDEES
+'use strict';
+
 exports.up = function(knex, Promise) {
 
 };
