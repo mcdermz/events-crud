@@ -30,6 +30,14 @@ exports.seed = function(knex, Promise) {
           start_time: '2017-06-12 19:00:00',
           end_time: '2017-06-12 21:00:00',
           venue_id: 2
+        },
+        {
+          id: 4,
+          title: 'DONT LOOK AT ME I SHOULD NOT BE HERE',
+          description: 'Does not matter',
+          start_time: '2017-04-01 19:00:00',
+          end_time: '2017-04-01 21:00:00',
+          venue_id: 3
         }
       ]);
     });
