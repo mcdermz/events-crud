@@ -2,7 +2,6 @@ const db = require('../../db/knex.js');
 const moment = require('moment')
 
 module.exports = function (req, res, next) {
-  const title = 'EVENT MASTER BLASTER';
   db.select('events.title', 'events.description', 'events.start_time', 'events.end_time', 'events.id', 'venues.capacity')
   .count('tickets_attendees.* as tickets')
   .from('venues')
@@ -16,10 +15,12 @@ module.exports = function (req, res, next) {
     allEvents.forEach(el  => {
       el.soldOut = el.tickets >= el.capacity;
       el.reqId = parseInt(req.params.id);
+      el.start_time = moment(el.start_time).format('MMMM Do YYYY, h:mm a');
+      el.end_time = moment(el.end_time).format('MMMM Do YYYY, h:mm a')
     });
-    allEvents = req.params.id ? allEvents.filter(el => {
+    req.allEvents = req.params.id ? allEvents.filter(el => {
       return el.id === el.reqId
     }) : allEvents
-    res.render('index', {allEvents, title});
+    next();
   })
 };
