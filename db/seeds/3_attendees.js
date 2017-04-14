@@ -20,5 +20,9 @@ exports.seed = function(knex, Promise) {
           email: 'jill@jab.com'
         },
       ]);
+    }).then(() => {
+      return knex.raw(
+        "SELECT setval('attendees_id_seq', (SELECT MAX(id) FROM attendees));"
+      )
     });
 };

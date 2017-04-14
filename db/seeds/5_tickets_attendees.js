@@ -19,5 +19,9 @@ exports.seed = function(knex, Promise) {
         {id: 12, ticket_id: 4, attendee_id: 1},
         {id: 13, ticket_id: 4, attendee_id: 2}
       ]);
+    }).then(() => {
+      return knex.raw(
+        "SELECT setval('tickets_attendees_id_seq', (SELECT MAX(id) FROM tickets_attendees));"
+      )
     });
 };

@@ -40,5 +40,9 @@ exports.seed = function(knex, Promise) {
           venue_id: 3
         }
       ]);
+    }).then(() => {
+      return knex.raw(
+        "SELECT setval('events_id_seq', (SELECT MAX(id) FROM events));"
+      )
     });
 };

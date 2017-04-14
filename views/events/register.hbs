@@ -14,19 +14,26 @@
 </ul>
 {{/each}}
 
+{{#if error}}
+<div class="error">
+  {{error.message}}
+</div>
+{{/if}}
+
 <form class="register" action="/events" method="post">
-  <label for="preferred-name">Preferred Name</label>
-  <input type="text" name="preferred_name" value="">
+  <label for="pref-name">Preferred Name</label>
+  <input required type="text" name="pref_name" value="">
   <label for="last-name">Last Name</label>
-  <input type="text" name="last_name" value="">
+  <input required type="text" name="last_name" value="">
   <label for="birthday">Birthday</label>
-  <input type="date" name="birthday" value="">
+  <input required type="date" name="birthday" value="">
   <label for="email">Email</label>
-  <input type="email" name="email" value="">
+  <input required type="email" name="email" value="">
   <label for="ticket">Ticket Type</label>
-  <select name="ticket">
+  <select name="ticket_id">
     {{#each tickets}}
-    <<option value="{{this.id}}">{{this.name}}</option>
+    <<option value="{{this.id}}">{{this.name}} - ${{this.price}}</option>
     {{/each}}
-  </select>
+  </select><br />
+  <input type="submit" name="" value="Register">
 </form>

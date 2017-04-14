@@ -26,5 +26,9 @@ exports.seed = function(knex, Promise) {
           zip: 01215
         }
       ]);
+    }).then(() => {
+      return knex.raw(
+        "SELECT setval('venues_id_seq', (SELECT MAX(id) FROM venues));"
+      )
     });
 };
