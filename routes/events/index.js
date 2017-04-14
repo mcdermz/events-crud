@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const getEvents = require('./controller.js')
+const db = require('../../db/knex.js')
 
 /* GET events listing. */
 router.get('/:id', getEvents, eventsShow);
@@ -15,7 +16,10 @@ function eventsShow (req, res) {
 function eventsRegister (req, res, next) {
   const title = 'EVENT MASTER BLASTER';
   const allEvents = req.allEvents;
-  res.render('events/register', {title, allEvents})
+  db('tickets').where('event_id', allEvents[0].id).then(tickets => {
+    console.log(tickets);
+    res.render('events/register', {title, allEvents, tickets})
+  })
 }
 
 module.exports = router;

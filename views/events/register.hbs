@@ -25,8 +25,8 @@
   <input type="email" name="email" value="">
   <label for="ticket">Ticket Type</label>
   <select name="ticket">
-    {{#each ticketTypes}}
-    <<option value="{{ticketTypes.id}}">{{ticketTypes.name}}</option>
+    {{#each tickets}}
+    <<option value="{{this.id}}">{{this.name}}</option>
     {{/each}}
   </select>
 </form>
