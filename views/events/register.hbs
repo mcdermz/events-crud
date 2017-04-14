@@ -1,0 +1,32 @@
+{{#each allEvents}}
+<h2>{{this.title}}</h2>
+
+{{#if this.soldOut}}
+<h3>SOLD OUT</h3>
+{{else}}
+<h3>{{this.tickets}}/{{this.capacity}}</h3>
+{{/if}}
+
+<ul>
+  <li>{{this.description}}</li>
+  <li>{{this.start_time}}</li>
+  <li>{{this.end_time}}</li>
+</ul>
+{{/each}}
+
+<form class="register" action="/events" method="post">
+  <label for="preferred-name">Preferred Name</label>
+  <input type="text" name="preferred_name" value="">
+  <label for="last-name">Last Name</label>
+  <input type="text" name="last_name" value="">
+  <label for="birthday">Birthday</label>
+  <input type="date" name="birthday" value="">
+  <label for="email">Email</label>
+  <input type="email" name="email" value="">
+  <label for="ticket">Ticket Type</label>
+  <select name="ticket">
+    {{#each ticketTypes}}
+    <<option value="{{ticketTypes.id}}">{{ticketTypes.name}}</option>
+    {{/each}}
+  </select>
+</form>
