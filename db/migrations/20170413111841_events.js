@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
     table.text('description').defaultTo('');
     table.dateTime('start_time').notNullable();
     table.dateTime('end_time').notNullable();
-    table.integer('venue_id')
+    table.integer('venue_id');
   })
 };
 
