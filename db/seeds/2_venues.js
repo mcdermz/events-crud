@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
         {
           id: 1,
           name: 'The Jangle Barn',
-          capacity: 150,
+          capacity: 7,
           address_line_1: '123 Faker St.',
           address_line_2: 'Suite # 2',
           city: 'Seattle',

@@ -13,15 +13,15 @@ exports.seed = function(knex, Promise) {
         },
         {
           id: 2,
-          name: 'General admission',
-          price: 500,
-          event_id: 2
+          name: 'VIP',
+          price: 90,
+          event_id: 1
         },
         {
           id: 3,
           name: 'VIP',
-          price: 90,
-          event_id: 1
+          price: 500,
+          event_id: 2
         },
         {
           id: 4,
