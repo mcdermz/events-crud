@@ -4,7 +4,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('tickets_attendees', (table) => {
     table.increments();
-    table.integer('ticket_id'); 
+    table.integer('ticket_id');
     table.integer('attendee_id');
   });
 };
