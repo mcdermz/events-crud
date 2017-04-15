@@ -23,7 +23,9 @@
 </div>
 {{/if}}
 
-<form class="register" action="/events" method="post">
+{{#each allEvents}}
+<form class="register" action="/events/{{this.id}}" method="post">
+{{/each}}
   <label for="pref-name">Preferred Name</label>
   <input required type="text" name="pref_name" value="">
   <label for="last-name">Last Name</label>
