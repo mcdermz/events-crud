@@ -14,6 +14,9 @@
   <li>{{this.description}}</li>
   <li>{{this.start_time}}</li>
   <li>{{this.end_time}}</li>
+  {{#if this.over_21}}
+  <h5>This event is 21+</h5>
+  {{/if}}
 </ul>
 <a href="/events/{{this.id}}/register">Register now</a>
 {{/each}}
