@@ -22,12 +22,6 @@ function registerAttendee (req, res, next) {
     res.render(`events/register`, {allEvents, attendeeData, error});
   }
 
-// SELECT attendees.email, events.id
-// FROM events
-// INNER JOIN tickets ON events.id = tickets.event_id
-// INNER JOIN tickets_attendees ON tickets.id = tickets_attendees.ticket_id
-// INNER JOIN attendees ON attendees.id = tickets_attendees.attendee_id;
-
   db.select('attendees.email', 'events.id as event_id').from('events')
   .innerJoin('tickets', 'events.id', 'tickets.event_id')
   .where('tickets.id', ticket_id)
