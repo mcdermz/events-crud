@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  each event in allEvents
+    h2= event.title
+    h3
+      if event.soldOut
+        | SOLD OUT
+      else
+        | #{event.tickets} / #{event.capacity}
+    ul
+      li= event.description
+      li= event.start_time
+      li= event.end_time
+      if event.over_21
+        h5 This event is 21+
+  if error
+    .error= error.message 
+  each event in allEvents
+    form.register(action=`/events/${event.id}` method='POST')
+      label(for='pref-name') Preferred Name
+      input(required type='text' name='pref_name' value='')
+      label(for='last-name') Last Name
+      input(required type='text' name='pref_name' value='')
+      label(for='birthday') Birthday
+      input(required type='date' name='birthday' value='')
+      label(for='email') Email
+      input(required type='email' name='email' value='')
+      label(for='ticket') Preferred Name
+      select(name='ticket_id')
+        each ticket in tickets
+          option(value=`${ticket.id}`) #{ticket.name} - #{ticket.price}
+      input(type='submit' name='' value='Register')
