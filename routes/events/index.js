@@ -22,13 +22,35 @@ function registerAttendee (req, res, next) {
     res.render(`events/register`, {allEvents, attendeeData, error});
   }
 
-  db('attendees').insert({pref_name, last_name, birthday, email}, 'id')
-  .then( attendee_id => {
-    let attendee = attendee_id[0]
-    db('tickets_attendees').insert([{attendee_id: attendee, ticket_id}])
-    .then(() => {
-      res.redirect('/')
-    })
+// SELECT attendees.email, events.id
+// FROM events
+// INNER JOIN tickets ON events.id = tickets.event_id
+// INNER JOIN tickets_attendees ON tickets.id = tickets_attendees.ticket_id
+// INNER JOIN attendees ON attendees.id = tickets_attendees.attendee_id;
+
+  db.select('attendees.email', 'events.id as event_id').from('events')
+  .innerJoin('tickets', 'events.id', 'tickets.event_id')
+  .where('tickets.id', ticket_id)
+  .innerJoin('tickets_attendees', 'tickets.id', 'tickets_attendees.ticket_id')
+  .innerJoin('attendees', 'attendees.id', 'tickets_attendees.attendee_id')
+  .where('attendees.email', email)
+  .then( attendeeEvent => {
+    console.log(attendeeEvent);
+    if (attendeeEvent.length) {
+      const error = {message: 'You have already used this email to register for this event.'};
+      res.render(`events/register`, {allEvents, attendeeData, error});
+    } else {
+      db('attendees').insert({pref_name, last_name, birthday, email}, 'id')
+      .then( attendee_id => {
+        let attendee = attendee_id[0]
+        db('tickets_attendees').insert([{attendee_id: attendee, ticket_id}])
+        .then(() => {
+          res.redirect('/')
+        })
+      })
+    }
+  }).catch(err => {
+    next(err)
   })
 };
 

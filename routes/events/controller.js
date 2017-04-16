@@ -22,5 +22,7 @@ module.exports = function (req, res, next) {
       return el.id === el.reqId
     }) : allEvents
     next();
+  }).catch(err => {
+    next(err)
   })
 };
