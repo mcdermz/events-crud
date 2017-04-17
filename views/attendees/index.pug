@@ -1,4 +1,17 @@
 extends ../layout
 
 block content 
-  h1 TEST TITLE
+  h1 #{attendee.pref_name} #{attendee.last_name}
+  each event in allEvents
+    h2= event.title
+    h3
+      if event.soldOut
+        | SOLD OUT
+      else
+        | #{event.tickets} / #{event.capacity}
+    ul
+      li= event.description
+      li= event.start_time
+      li= event.end_time
+      if event.over_21
+        h5 This event is 21+
