@@ -22,17 +22,31 @@ function registerAttendee (req, res, next) {
     res.render(`events/register`, {allEvents, attendeeData, error});
   }
 
-  db.select('attendees.email', 'events.id as event_id').from('events')
-  .innerJoin('tickets', 'events.id', 'tickets.event_id')
-  .where('tickets.id', ticket_id)
-  .innerJoin('tickets_attendees', 'tickets.id', 'tickets_attendees.ticket_id')
-  .innerJoin('attendees', 'attendees.id', 'tickets_attendees.attendee_id')
-  .where('attendees.email', email)
-  .then( attendeeEvent => {
-    console.log(attendeeEvent);
-    if (attendeeEvent.length) {
-      const error = {message: 'You have already used this email to register for this event.'};
-      res.render(`events/register`, {allEvents, attendeeData, error});
+  db.select('email').from('attendees').where('email', email)
+  .then(emails => {
+    if (emails.length) {
+      db.select('attendees.email', 'events.id as event_id').from('events')
+      .innerJoin('tickets', 'events.id', 'tickets.event_id')
+      .where('tickets.id', ticket_id)
+      .innerJoin('tickets_attendees', 'tickets.id', 'tickets_attendees.ticket_id')
+      .innerJoin('attendees', 'attendees.id', 'tickets_attendees.attendee_id')
+      .where('attendees.email', email)
+      .then( attendeeEvent => {
+        if (attendeeEvent.length) {
+          const error = {message: 'You have already used this email to register for this event.'};
+          res.render(`events/register`, {allEvents, attendeeData, error});
+        } else {
+          db.select('id').from('attendees').where('email', email)
+          .then( attendee_id => {
+            console.log(attendee_id[0].id);
+            let attendee = attendee_id[0].id
+            db('tickets_attendees').insert([{attendee_id: attendee, ticket_id}])
+            .then(() => {
+              res.redirect(`/attendees/${attendee}`)
+            })
+          })
+        }
+      })
     } else {
       db('attendees').insert({pref_name, last_name, birthday, email}, 'id')
       .then( attendee_id => {
@@ -44,7 +58,7 @@ function registerAttendee (req, res, next) {
       })
     }
   }).catch(err => {
-    next(err)
+      next(err)
   })
 };
 
