@@ -18,7 +18,7 @@ exports.seed = function(knex, Promise) {
         {
           id: 2,
           name: 'Hotel Generico',
-          capacity: 600,
+          capacity: 8,
           address_line_1: '185400 Phraker Ave.',
           address_line_2: 'Main Ballroom',
           city: 'Boston',

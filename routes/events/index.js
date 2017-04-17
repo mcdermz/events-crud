@@ -33,8 +33,10 @@ function registerAttendee (req, res, next) {
       .where('attendees.email', email)
       .then( attendeeEvent => {
         if (attendeeEvent.length) {
-          const error = {message: 'You have already used this email to register for this event.'};
-          res.render(`events/register`, {allEvents, attendeeData, error});
+          db('tickets').where('event_id', allEvents[0].id).then(tickets => {
+            const error = {message: 'You have already used this email to register for this event.'};
+            res.render('events/register', {attendeeData, allEvents, tickets, error})
+          })
         } else {
           db.select('id').from('attendees').where('email', email)
           .then( attendee_id => {
