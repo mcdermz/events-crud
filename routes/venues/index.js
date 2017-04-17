@@ -5,7 +5,7 @@ const db = require('../../db/knex.js')
 router.get('/:id', venueEvents)
 
 function venueEvents (req, res, next) {
-  res.send('Venue events works!')
+  res.render('venues/')
 }
 
 module.exports = router
