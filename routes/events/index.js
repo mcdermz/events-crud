@@ -39,7 +39,7 @@ function registerAttendee (req, res, next) {
         let attendee = attendee_id[0]
         db('tickets_attendees').insert([{attendee_id: attendee, ticket_id}])
         .then(() => {
-          res.redirect('/')
+          res.redirect(`/attendees/${attendee}`)
         })
       })
     }
