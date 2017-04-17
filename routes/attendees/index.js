@@ -14,6 +14,7 @@ function attendeeEvents (req, res, next) {
     .innerJoin('tickets_attendees', 'tickets_attendees.attendee_id', attendee.id)
     .innerJoin('tickets', 'tickets.id', 'tickets_attendees.ticket_id')
     .innerJoin('events', 'events.id', 'tickets.event_id')
+    .orderBy('start_time')
     .then(allEvents => {
       console.log(allEvents);
       res.render('attendees/', { attendee, allEvents })

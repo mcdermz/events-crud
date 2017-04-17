@@ -12,8 +12,8 @@ exports.seed = function(knex, Promise) {
           title: 'Rock concert',
           description: 'Rock n roll all night and party every day!!!!!',
           over_21: true,
-          start_time: '2017-04-22 18:00:00',
-          end_time: '2017-04-22 20:00:00',
+          start_time: '2018-04-22 18:00:00',
+          end_time: '2018-04-22 20:00:00',
           venue_id: 1
         },
         {
